@@ -6,20 +6,20 @@ RUN echo " BUILDING APP "
 
 FROM alpine:latest as unittest
 WORKDIR /unitTest
-COPY --from=builder /srcode/test ./test
-RUN echo "IM RUNNING THE UNITTEST" > /test
+COPY --from=builder /code/test ./test
+RUN echo "RUNNING THE UNITTEST" > /test
 
 FROM alpine:latest as Securitycheck
 WORKDIR	/sec
-COPY --from=builder /srccode/* ./
+COPY --from=builder /code/* ./
 COPY --from=unittest /unittest/test ./test
-RUN echo "IM RUNNING THE Security" >> /test
+RUN echo "RUNNING THE SECURITY" >> /test
 
 
-FROM alpine:latest as emailAlert
+FROM alpine:latest as emailalert
 WORKDIR	/reports
 COPY --from=Securitycheck /sec/test ./test
-RUN echo "Sending Email with reports" >> /test
+RUN echo "SENDING REPORTS" >> /test
 
 
 FROM alpine:latest as webapp
