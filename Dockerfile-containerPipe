@@ -1,0 +1,30 @@
+FROM someimage:latest as builder
+RUN echo " Installing LIBS "
+WORKDIR /code
+COPY ./test ./test
+RUN echo " BUILDING APP "
+
+FROM alpine:latest as unittest
+WORKDIR /unitTest
+COPY --from=builder /srcode/test ./test
+RUN echo "IM RUNNING THE UNITTEST" > /test
+
+FROM alpine:latest as Securitycheck
+WORKDIR	/sec
+COPY --from=builder /srccode/* ./
+COPY --from=unittest /unittest/test ./test
+RUN echo "IM RUNNING THE Security" >> /test
+
+
+FROM alpine:latest as emailAlert
+WORKDIR	/reports
+COPY --from=Securitycheck /sec/test ./test
+RUN echo "Sending Email with reports" >> /test
+
+
+FROM alpine:latest as webapp
+WORKDIR /code
+COPY --from=builder /sec/*.py ./
+CMD echo "process completed"
+
+
