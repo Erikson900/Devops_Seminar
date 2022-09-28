@@ -32,7 +32,7 @@ COPY --from=builder /usr/src/app/*.py ./
 COPY --from=builder /usr/src/app/api ./api
 RUN sonar-scanner -Dsonar.projectBaseDir=/usr/src
 
-
+#latest python version has to be installed
 # Runs Unit Tests
 # Phase IV
 #FROM python:latest as unit-tests
