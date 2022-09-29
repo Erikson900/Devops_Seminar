@@ -14,7 +14,7 @@ We are going to build this application inside a docker container and run:
 
 NOTE:
     
-- you must creat a local network on wich the test will run 
+- you must create a local network on which the test will run 
     
     $ docker network create (custom name)
 
@@ -32,7 +32,7 @@ or as an alternative you can run the yaml file
 
 - once your sonarqube is running on (localhost:9000) you`d be asked to change the password 
 
-* default: usr:admin paswd:admin 
+* default: usr:admin password:admin 
 
 ! make the according changes -> sonar-runner.properties file (config)
 
